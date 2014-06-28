@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-
+import baiduMap
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home/$', 'userManager.views.home', name='home'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'})
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
+    url(r'^baidu/$', include('baiduMap.urls')),
 )
