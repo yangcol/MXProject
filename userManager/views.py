@@ -16,5 +16,15 @@ def my_view(request):
         return HttpResponse("You can't vote in this poll.")
 
 
-def show_users(request):
-    return render_to_response('user.html')
+def show(request):
+    from django.contrib.auth.models import User
+    users = User.objects.all()
+    for user in users:
+        pass
+    return render_to_response('user.html', {'users': users})
+
+
+def debug(request):
+    from userManager.admin import init
+    result = init()
+    return HttpResponse("结束")

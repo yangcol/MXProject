@@ -4,6 +4,10 @@
     <title></title>
 </head>
 <body>
-
+{% if users %}
+    {% for user in users %}
+        {{ user.name }}, {{ user. }}
+    {% endfor %}
+{% endif %}
 </body>
 </html>

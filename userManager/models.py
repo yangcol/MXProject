@@ -1,5 +1,5 @@
 #encoding:utf-8
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import models
 
 
@@ -27,21 +27,48 @@ class USCitizen(models.Model):
             ("can_drink", "Can drink alcohol")
         )
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    info = models.CharField(max_length=128)
+    sex = models.CharField(max_length=1)
+    age = models.IntegerField(max_length=2)
+    department = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return "%s, %s" % (self.user.username, self.sex)
 '''用户权限的划分
-'''
+
 class ReservoirUser(models.Model):
-    pass
+    name = models.OneToOneField(User)
+    group = models.ForeignKey(Group)
+    def __unicode__(self):
+        return self.name
+
 
 class XianUser(models.Model):
-    pass
+    name = models.OneToOneField(User)
+    group = models.ForeignKey(Group)
+
+    def __unicode__(self):
+        return self.name
+
 
 class CityUser(models.Model):
-    pass
+    name = models.OneToOneField(User)
+    group = models.ForeignKey(Group)
+
+    def __unicode__(self):
+        return self.name
 
 
 class ProvinceUser(models.Model):
-    pass
+    name = models.OneToOneField(User)
+    group = models.ForeignKey(Group)
 
+    def __unicode__(self):
+        return self.name
+'''
 '''以下是行政区划的部分
 '''
 #省
