@@ -1,2 +1,5 @@
 *.pyc
 .idea
+mxSqlite3
+foo
+*.log

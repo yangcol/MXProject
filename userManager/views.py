@@ -1,5 +1,6 @@
 #encoding:utf-8
 # Create your views here.
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
@@ -27,4 +28,4 @@ def show(request):
 def debug(request):
     from userManager.admin import init
     result = init()
-    return HttpResponse("结束")
+    return render_to_response("user.html", {'users': User.objects.all()})

@@ -7,7 +7,7 @@ from models import UserProfile
 import logging
 
 # Get an instance of a logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('myproject.custom')
 #用户权限
 class PermissionAdmin(admin.ModelAdmin):
     pass
@@ -38,6 +38,8 @@ class XianUserAdmin(admin.ModelAdmin):
 class ReservoirUserAdmin(admin.ModelAdmin):
     pass
 '''
+
+
 class UserProfileAdmin(admin.ModelAdmin):
     pass
 admin.site.register(UserProfile, UserProfileAdmin)
@@ -74,7 +76,7 @@ def create_permission(name, content_type):
     if not p:
         pass
     else:
-        print "P:", p[0]
+        #print "P:", p[0]
         return p[0]
 
     try:
@@ -155,11 +157,13 @@ def create_group(name, permissions):
 
 def init():
     # Create super user
+    logger.info("Start init")
     try:
         admin = User.objects.create_superuser('enyo', None, '.')
         admin.save()
     except Exception, e:
-        print e.message
+        pass
+        #print e.message
     re_table = ContentType.objects.get(name=Reservoir.__name__.lower())
     xian_table = ContentType.objects.get(name=Xian.__name__.lower())
     city_table = ContentType.objects.get(name=City.__name__.lower())

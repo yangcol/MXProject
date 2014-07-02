@@ -1,5 +1,5 @@
 # Django settings for MXProject project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -67,12 +67,18 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 # Additional locations of static files
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#print "Base dir:", BASE_DIR
 STATICFILES_DIRS = (
+    os.path.abspath(os.path.abspath(BASE_DIR + "/../static")).replace('\\', '/'),
+    #'H:/MyProject/Python/Django/MXProject/static',
+    #'H:/MyProject/Python/woaichi/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
 
+#print STATICFILES_DIRS
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -132,7 +138,15 @@ INSTALLED_APPS = (
 # more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '[%(levelname)s] [%(asctime)s] [%(module)s] [%(funcName)s : %(lineno)d] [%(process)d] [%(thread)d] %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -143,7 +157,18 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
@@ -151,5 +176,9 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'myproject.custom': {
+            'handlers': ['file'],
+            'level': 'INFO'
+        }
     }
 }
