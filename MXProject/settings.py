@@ -128,7 +128,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'userManager',
     'baiduMap',
-    'foo',
 )
 
 # A sample logging configuration. The only tangible logging
